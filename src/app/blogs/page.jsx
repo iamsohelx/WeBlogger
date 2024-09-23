@@ -6,7 +6,7 @@ async function FetchBlogData() {
 
     const apiResponse = await fetch("http://localhost:3000/api/get-blog",{
       method:"GET",
-      cache:"no-store"
+      cache:"force-cache"
     })
 
     const result = await apiResponse.json();    
