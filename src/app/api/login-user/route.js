@@ -15,10 +15,16 @@ export async function POST(req, res) {
         const {email, password} = extractLoginData
         
         const userfind = await user.findOne({email:email})
-        const bcryptVal = bcrypt.compare(password,userfind.password)
-        if(userfind && bcryptVal){
-
-                let token =  Jwt.sign({email:userfind.email,userid:userfind._id},process.env.JWT_SECRETE_KEY)
+        console.log(userfind);
+        
+        const bcryptVal = await bcrypt.compare(password,userfind.password)
+        console.log(bcryptVal);
+        
+        if(bcryptVal){
+            
+                let token = Jwt.sign({email:userfind.email,userid:userfind._id},"sohel2911")
+                
+                
                 let cookieStore = cookies()
                 cookieStore.set("token",token)   
                 console.log(token); 
@@ -29,6 +35,8 @@ export async function POST(req, res) {
                 })
 
         }else{
+            console.log("ekdjekdje");
+            
             return NextResponse.json({
                 success:false,
                 message:"No User Found or Password is incorrect"
