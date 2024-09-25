@@ -1,12 +1,13 @@
 import ConnDB from "@/database"
 import Blog from "@/models/blog"
 import { NextResponse } from "next/server";
+import { isDynamicServerError } from "next/dist/client/components/hooks-server-context";
 
 
 export async function GET(req) {
-    const { searchParams } = new URL(req.url);
     try{
         await ConnDB();
+        const { searchParams } = new URL(req.url);
         const getCurrentBlogID = searchParams.get('id');
         
         const extractAllBlogData = await Blog.findOne({_id:getCurrentBlogID})
@@ -25,7 +26,12 @@ export async function GET(req) {
                 message:"something went wrong"
             })
         }
+
+        
     }catch(err){
+if(isDynamicServerError(err))
+    throw err
+        // unstable_rethrow(err)
       console.log(err);
       
     }
