@@ -1,9 +1,9 @@
 import BlogOverview from '@/components/blog-overview'
 import React from 'react'
-
+require("dotenv").config()
 async function FetchBlogData() {
   try{
-    const apiResponse = await fetch(`http://localhost:3000/api/get-blog`,{
+    const apiResponse = await fetch(`${process.env.NEXT_PUBLIC_MAIN_URL}/api/get-blog`,{
       method:"GET",
       cache:"no-store"
     })

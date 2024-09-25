@@ -22,7 +22,7 @@ const Page = () => {
   });
 
   const saveLoginData = async ()=>{
-        const apiResponse = await fetch("/api/login-user",{
+        const apiResponse = await fetch(`${process.env.NEXT_PUBLIC_MAIN_URL}/api/login-user`,{
           method:"POST",
           body:JSON.stringify(loginData)
         })

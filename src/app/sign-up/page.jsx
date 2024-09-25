@@ -20,7 +20,7 @@ const Page = () => {
   })
 
   const createNewUser = async ()=> {
-    const apiResponse = await fetch('/api/add-user', {
+    const apiResponse = await fetch(`${process.env.NEXT_PUBLIC_MAIN_URL}/api/add-user`, {
       method:"POST",
       body:JSON.stringify(userData)
     })

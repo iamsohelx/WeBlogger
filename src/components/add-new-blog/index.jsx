@@ -22,7 +22,7 @@ const AddNewBlog = ({openBlogDialog,setOpenBlogDialog, loading, setLoading, blog
     try{
          setLoading(true)
          const apiResponse = currentEditedBlogId !== null?
-          await fetch(`/api/update-blog?id=${currentEditedBlogId}`,{
+          await fetch(`${process.env.NEXT_PUBLIC_MAIN_URL}/api/update-blog?id=${currentEditedBlogId}`,{
           method:"PUT",
           body:JSON.stringify(blogFormData)
 

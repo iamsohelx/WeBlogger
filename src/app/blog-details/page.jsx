@@ -41,7 +41,7 @@ const Page = () => {
     const setBlogDetailData = async()=>{
       try{
 
-        const apiResponse = await fetch(`/api/get-blog-detail?id=${blogId}`,{
+        const apiResponse = await fetch(`${process.env.NEXT_PUBLIC_MAIN_URL}/api/get-blog-detail?id=${blogId}`,{
           method:"GET",
           cache:"no-store"
         })

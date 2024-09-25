@@ -27,7 +27,7 @@ const BlogOverview = ({ BlogLists }) => {
 
   const deleteByBlogId = async (currentId) => {
     try {
-      const apiResponse = await fetch(`/api/delete-blog?id=${currentId}`, {
+      const apiResponse = await fetch(`${process.env.NEXT_PUBLIC_MAIN_URL}/api/delete-blog?id=${currentId}`, {
         method: "DELETE",
       });
 

@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from 'react'
 import { Button } from '@/components/ui/button';
 import { useRouter } from 'next/navigation'
+require('dotenv').config()
 import {
   Card,
   CardContent,
@@ -12,7 +13,7 @@ import {
 async function FetchBlogData() {
   try{
 
-    const apiResponse = await fetch(`/api/get-blog`,{
+    const apiResponse = await fetch(`${process.env.NEXT_PUBLIC_MAIN_URL}/api/get-blog`,{
       method:"GET",
       cache:"no-store"
     })
