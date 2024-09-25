@@ -41,7 +41,7 @@ const Page = () => {
     const setBlogDetailData = async()=>{
       try{
 
-        const apiResponse = await fetch(`http://localhost:3000/api/get-blog-detail?id=${blogId}`,{
+        const apiResponse = await fetch(`https://we-blogger.vercel.app/api/get-blog-detail?id=${blogId}`,{
           method:"GET",
           cache:"no-store"
         })
