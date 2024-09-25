@@ -4,9 +4,9 @@ import { NextResponse } from "next/server";
 
 
 export async function GET(req) {
+    const { searchParams } = new URL(req.url);
     try{
         await ConnDB();
-        const { searchParams } = new URL(req.url);
         const getCurrentBlogID = searchParams.get('id');
         
         const extractAllBlogData = await Blog.findOne({_id:getCurrentBlogID})
