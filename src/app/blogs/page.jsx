@@ -3,8 +3,7 @@ import React from 'react'
 
 async function FetchBlogData() {
   try{
-    // https://we-blogger-onuw8gypk-sohel-sheikhs-projects.vercel.app
-    const apiResponse = await fetch("https://we-blogger.vercel.app/api/get-blog",{
+    const apiResponse = await fetch(`http://localhost:3000/api/get-blog`,{
       method:"GET",
       cache:"no-store"
     })

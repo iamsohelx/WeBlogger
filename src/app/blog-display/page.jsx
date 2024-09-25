@@ -12,7 +12,7 @@ import {
 async function FetchBlogData() {
   try{
 
-    const apiResponse = await fetch("https://we-blogger.vercel.app/api/get-blog",{
+    const apiResponse = await fetch(`/api/get-blog`,{
       method:"GET",
       cache:"no-store"
     })
