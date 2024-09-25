@@ -15,7 +15,7 @@ const Navbar = ({cookieValue}) => {
   const [logoutBtn, setLogoutBtn] = useState(false)
 
   const handleLogOut = async ()=>{
-    const logoutResponse = await fetch("/api/logout",{
+    const logoutResponse = await fetch(`${process.env.NEXT_PUBLIC_MAIN_URL}/api/logout`,{
       method:"GET"
     })
 
@@ -38,7 +38,7 @@ const Navbar = ({cookieValue}) => {
   
   return (
     <div className='container px-5 md:px-14 py-4 drop-shadow-md flex justify-between items-center sticky top-0 z-50 bg-white'>
-      <Link href={'/'} className=' text-2xl md:text-4xl font-extrabold text-blue-600'>Blogger</Link>
+      <Link href={'/'} className=' text-2xl md:text-4xl font-extrabold text-blue-600'>WeBlogger</Link>
      
       {hamburger
         ?
