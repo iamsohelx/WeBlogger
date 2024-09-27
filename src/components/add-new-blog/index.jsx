@@ -26,7 +26,7 @@ const AddNewBlog = ({openBlogDialog,setOpenBlogDialog, loading, setLoading, blog
           method:"PUT",
           body:JSON.stringify(blogFormData)
 
-         }): await fetch("/api/add-blog",{
+         }): await fetch(`${process.env.NEXT_PUBLIC_MAIN_URL}/api/add-blog`,{
           method:"POST",
           body: JSON.stringify(blogFormData),
 

@@ -33,6 +33,15 @@ const Page = () => {
         
   }
 
+  const logInWithGuest = async()=>{
+    const logInApi = await fetch(`${process.env.NEXT_PUBLIC_MAIN_URL}/api/guest-login`,{
+      method:"GET"
+    })
+
+    const guestResult = await logInApi.json()
+    if(guestResult?.success)
+      router.push("/blogs")
+  }
   
 
 
@@ -72,7 +81,7 @@ const Page = () => {
       </CardContent>
       
       <CardFooter>
-      <Button className="w-full bg-transparent border border-blue-600 text-blue-600">
+      <Button onClick={logInWithGuest} className="w-full bg-transparent border border-blue-600 text-blue-600">
            Continue with Guest
         </Button>
       </CardFooter>

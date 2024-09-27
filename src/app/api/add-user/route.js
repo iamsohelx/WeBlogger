@@ -8,11 +8,12 @@ export async function POST(req) {
     const { username, email, password } = extractUserData;
     
     bcrypt.hash(password,10,async(err, hash)=>{
-        await user.create({
+      await user.create({
             username,
             email,
             password:hash
         })
+        
     })
         
         return NextResponse.json({

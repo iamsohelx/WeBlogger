@@ -2,6 +2,7 @@
 import React, { useState } from 'react'
 import { Button } from "@/components/ui/button"
 import { Input } from '@/components/ui/input'
+import { useRouter } from 'next/navigation'
 import {
   Card,
   CardContent,
@@ -10,9 +11,11 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card"
+import { AwardIcon } from 'lucide-react'
 
 const Page = () => {
 
+  const router = useRouter()
   const [userData, setUserData] = useState({
     username:'',
     email:'',
@@ -24,8 +27,21 @@ const Page = () => {
       method:"POST",
       body:JSON.stringify(userData)
     })
+
+    const result = await apiResponse.json()
+    if(result?.success)
+      router.push("/login")
   }
 
+  const logInwithGuest = async()=>{
+    const GuestLoginApi = await fetch(`${process.env.NEXT_PUBLIC_MAIN_URL}/api/guest-login`,{
+      method:"GET"
+    })
+
+    const guestResult = await GuestLoginApi.json()
+    if(guestResult?.success)
+      router.push("/blogs")
+  }
   
 
   return (
@@ -69,7 +85,7 @@ const Page = () => {
       </CardContent>
       
       <CardFooter>
-      <Button className="w-full bg-transparent border border-blue-600 text-blue-600">
+      <Button onClick={logInwithGuest} className="w-full bg-transparent border border-blue-600 text-blue-600">
            Continue with Guest
         </Button>
       </CardFooter>
