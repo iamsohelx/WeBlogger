@@ -15,7 +15,6 @@ async function FetchBlogData() {
 
     const apiResponse = await fetch(`${process.env.NEXT_PUBLIC_MAIN_URL}/api/get-blog`,{
       method:"GET",
-      cache:"no-store"
     })
    
     const result = await apiResponse.json();   
