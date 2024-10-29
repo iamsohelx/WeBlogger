@@ -3,6 +3,7 @@ import React, { useState } from 'react'
 import { Button } from "@/components/ui/button"
 import { Input } from '@/components/ui/input'
 import { useRouter } from 'next/navigation'
+import { AddNewUser } from '@/actions'
 import {
   Card,
   CardContent,
@@ -22,15 +23,21 @@ const Page = () => {
     password:''
   })
 
-  const createNewUser = async ()=> {
-    const apiResponse = await fetch(`${process.env.NEXT_PUBLIC_MAIN_URL}/api/add-user`, {
-      method:"POST",
-      body:JSON.stringify(userData)
-    })
+  // const createNewUser = async ()=> {
+  //   const apiResponse = await fetch(`${process.env.NEXT_PUBLIC_MAIN_URL}/api/add-user`, {
+  //     method:"POST",
+  //     body:JSON.stringify(userData)
+  //   })
 
-    const result = await apiResponse.json()
+  //   const result = await apiResponse.json()
+  //   if(result?.success)
+  //     router.push("/login")
+  // }
+
+  const createNewUser = async ()=>{
+    const result = await AddNewUser(userData)
     if(result?.success)
-      router.push("/login")
+      router.push('/login')
   }
 
   const logInwithGuest = async()=>{

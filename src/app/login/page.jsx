@@ -11,6 +11,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card"
+import { LoginUser } from '@/actions'
 
 const Page = () => {
 
@@ -22,12 +23,11 @@ const Page = () => {
   });
 
   const saveLoginData = async ()=>{
-        const apiResponse = await fetch(`${process.env.NEXT_PUBLIC_MAIN_URL}/api/login-user`,{
-          method:"POST",
-          body:JSON.stringify(loginData)
-        })
-
-      const result = await apiResponse.json()
+        // const apiResponse = await fetch(`${process.env.NEXT_PUBLIC_MAIN_URL}/api/login-user`,{
+        //   method:"POST",
+        //   body:JSON.stringify(loginData)
+        // })
+      const result = await LoginUser(loginData)
       if(result?.success)
         router.push("/blogs")        
         
