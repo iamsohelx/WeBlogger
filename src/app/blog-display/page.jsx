@@ -9,16 +9,17 @@ import {
   CardDescription,
   CardTitle,
 } from "@/components/ui/card";
+import { GetBlog } from '@/actions';
 
 async function FetchBlogData() {
   try{
 
-    const apiResponse = await fetch(`${process.env.NEXT_PUBLIC_MAIN_URL}/api/get-blog`,{
-      method:"GET",
-      cache:"no-store"
-    })
+    // const apiResponse = await fetch(`${process.env.NEXT_PUBLIC_MAIN_URL}/api/get-blog`,{
+    //   method:"GET",
+    //   cache:"no-store"
+    // })
    
-    const result = await apiResponse.json();   
+    const result = await GetBlog();   
      
     return result?.data;
 
