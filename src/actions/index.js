@@ -4,6 +4,7 @@ import ConnDB from "@/database"
 import user from "../models/user"
 import bcrypt from "bcrypt"
 import Jwt from "jsonwebtoken"
+import Blog from "../models/blog"
 import { cookies } from "next/headers";
 
 
@@ -72,5 +73,31 @@ export async function LoginUser(userData) {
             success:false,
             message:"Something Went Wrong While Login"
         }
+    }
+}
+
+// Display Blog Data
+
+export async function GetBlog() {
+    try{
+        await ConnDB();
+        const extractAllBlogData = await Blog.find({})
+        
+
+        if(extractAllBlogData){
+            return {
+                success:true,
+                data: extractAllBlogData,
+            }
+        }
+        else{
+            return {
+                success:false,
+                message:"something went wrong"
+            }
+        }
+    }catch(err){
+      console.log(err);
+      
     }
 }
