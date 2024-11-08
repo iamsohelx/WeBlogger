@@ -101,3 +101,40 @@ export async function GetBlog() {
       
     }
 }
+
+// Delete Blog
+
+export async function DeleteBlog(blogid) {
+    try{
+        
+        await ConnDB();
+        const getCurrentBlogID = blogid
+
+        if(!getCurrentBlogID){
+           return {
+            success:false,
+            message:"Blog ID is required"
+           }
+        }
+
+        const deleteBlogByID = await Blog.findByIdAndDelete(getCurrentBlogID)
+        if(deleteBlogByID){
+            return {
+                success:true,
+                message:"Blog deleted successfully..."
+            }
+        }else{
+            return {
+                success: false,
+                message:"Something went wrong"
+              }
+        }
+
+    }catch(err)
+    {
+        return{
+            success:true,
+            message:"Something went wrong in delete section"
+        }
+    }
+}
