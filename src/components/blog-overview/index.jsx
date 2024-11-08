@@ -9,6 +9,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { useRouter } from "next/navigation";
+import { DeleteBlog } from "@/actions";
 
 const BlogOverview = ({ BlogLists }) => {
   const router = useRouter();
@@ -27,11 +28,11 @@ const BlogOverview = ({ BlogLists }) => {
 
   const deleteByBlogId = async (currentId) => {
     try {
-      const apiResponse = await fetch(`${process.env.NEXT_PUBLIC_MAIN_URL}/api/delete-blog?id=${currentId}`, {
-        method: "DELETE",
-      });
+      // const apiResponse = await fetch(`${process.env.NEXT_PUBLIC_MAIN_URL}/api/delete-blog?id=${currentId}`, {
+      //   method: "DELETE",
+      // });
 
-      const result = await apiResponse.json();
+      const result = await DeleteBlog(currentId)
       if (result?.success) router.refresh();
     } catch (err) {
       console.log(err);

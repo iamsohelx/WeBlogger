@@ -20,6 +20,7 @@ async function FetchBlogData() {
     // })
    
     const result = await GetBlog();   
+     console.log(result?.data);
      
     return result?.data;
 
