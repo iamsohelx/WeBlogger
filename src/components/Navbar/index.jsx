@@ -5,6 +5,7 @@ import { GiHamburgerMenu } from "react-icons/gi";
 import { RxCross2 } from "react-icons/rx";
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
+import { LogOut } from '@/actions';
 
 
 const Navbar = ({cookieValue}) => {
@@ -15,11 +16,11 @@ const Navbar = ({cookieValue}) => {
   const [logoutBtn, setLogoutBtn] = useState(false)
 
   const handleLogOut = async ()=>{
-    const logoutResponse = await fetch(`${process.env.NEXT_PUBLIC_MAIN_URL}/api/logout`,{
-      method:"GET"
-    })
+    // const logoutResponse = await fetch(`${process.env.NEXT_PUBLIC_MAIN_URL}/api/logout`,{
+    //   method:"GET"
+    // })
 
-    const result = await logoutResponse.json()
+    const result = await LogOut()
     console.log(result?.success);
     setLogoutBtn(false)
     

@@ -11,7 +11,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card"
-import { LoginUser } from '@/actions'
+import { GuestLogin, LoginUser } from '@/actions'
 
 const Page = () => {
 
@@ -34,11 +34,11 @@ const Page = () => {
   }
 
   const logInWithGuest = async()=>{
-    const logInApi = await fetch(`${process.env.NEXT_PUBLIC_MAIN_URL}/api/guest-login`,{
-      method:"GET"
-    })
-
-    const guestResult = await logInApi.json()
+    // const logInApi = await fetch(`${process.env.NEXT_PUBLIC_MAIN_URL}/api/guest-login`,{
+    //   method:"GET"
+    // })
+   
+    const guestResult = await GuestLogin()
     if(guestResult?.success)
       router.push("/blogs")
   }

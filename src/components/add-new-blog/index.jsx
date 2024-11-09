@@ -12,58 +12,66 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useRouter } from "next/navigation";
+import { AddBlog, EditBlog } from "@/actions";
 
-const AddNewBlog = ({openBlogDialog,setOpenBlogDialog, loading, setLoading, blogFormData, setBlogFormData, currentEditedBlogId, setcurrentEditedBlogId}) => {
-  
+const AddNewBlog = ({
+  openBlogDialog,
+  setOpenBlogDialog,
+  loading,
+  setLoading,
+  blogFormData,
+  setBlogFormData,
+  currentEditedBlogId,
+  setcurrentEditedBlogId,
+}) => {
   const router = useRouter();
 
-
   const saveBlogData = async () => {
-    try{
-         setLoading(true)
-         const apiResponse = currentEditedBlogId !== null?
-          await fetch(`${process.env.NEXT_PUBLIC_MAIN_URL}/api/update-blog?id=${currentEditedBlogId}`,{
-          method:"PUT",
-          body:JSON.stringify(blogFormData)
+    try {
+      let result;
+      const blogData = JSON.stringify(blogFormData);
 
-         }): await fetch(`${process.env.NEXT_PUBLIC_MAIN_URL}/api/add-blog`,{
-          method:"POST",
-          body: JSON.stringify(blogFormData),
+      setLoading(true);
+      //  const apiResponse = currentEditedBlogId !== null?
+      //   result = await EditBlog(currentEditedBlogId,blogData)
+      //   :
 
-         })
+      result = await AddBlog(blogData);
 
-         const result = await apiResponse.json();
-         if(result?.success){
-          router.refresh();
-          setBlogFormData({
-            title:"",
-            description:"",
-          })
-          setOpenBlogDialog(false);
-          setLoading(false)
-          setcurrentEditedBlogId(null)
-         }
-    }catch(err){
-       console.log(err);
-       setLoading(false)
-       
+      if (result) {
+        router.refresh();
+        setBlogFormData({
+          title: "",
+          description: "",
+        });
+        setOpenBlogDialog(false);
+        setLoading(false);
+        setcurrentEditedBlogId(null);
+      }
+    } catch (err) {
+      console.log(err);
+      setLoading(false);
     }
-  }
+  };
 
   return (
     <>
-      
-      <Dialog open={openBlogDialog} onOpenChange={()=>{
-        setOpenBlogDialog(false)
-        // setBlogFormData({
-        //   title:"",
-        //   description:""
-        // })
-        setcurrentEditedBlogId(null)
-      }}>
+      <Dialog
+        open={openBlogDialog}
+        onOpenChange={() => {
+          setOpenBlogDialog(false);
+          // setBlogFormData({
+          //   title:"",
+          //   description:""
+          // })
+          setcurrentEditedBlogId(null);
+        }}
+      >
         <DialogContent className="sm:max-w-[425px]">
           <DialogHeader>
-            <DialogTitle>{currentEditedBlogId?"Edit Blog":"Add New Blog"}</DialogTitle>
+            <DialogTitle>
+              {currentEditedBlogId ? "Edit Blog" : "Add New Blog"}
+            </DialogTitle>
           </DialogHeader>
           <div className="grid gap-4 py-4">
             <div className="grid grid-cols-4 items-center gap-4">
@@ -104,7 +112,13 @@ const AddNewBlog = ({openBlogDialog,setOpenBlogDialog, loading, setLoading, blog
             </div>
           </div>
           <DialogFooter>
-            <Button className="bg-blue-600 text-white" type="submit" onClick={saveBlogData}>{loading?"Saving Changes":"Save changes"}</Button>
+            <Button
+              className="bg-blue-600 text-white"
+              type="submit"
+              onClick={saveBlogData}
+            >
+              {loading ? "Saving Changes" : "Save changes"}
+            </Button>
           </DialogFooter>
         </DialogContent>
       </Dialog>
