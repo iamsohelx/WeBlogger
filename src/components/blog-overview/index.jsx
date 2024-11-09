@@ -9,7 +9,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { useRouter } from "next/navigation";
-import { DeleteBlog } from "@/actions";
+import { DeleteBlog, EditBlog } from "@/actions";
 
 const BlogOverview = ({ BlogLists }) => {
   const router = useRouter();
@@ -46,6 +46,9 @@ const BlogOverview = ({ BlogLists }) => {
         title:currentId.title,
         description:currentId.description
       })
+
+      const blogData = JSON.stringify(currentId)
+      const result = await EditBlog(currentEditedBlogId,blogData)
 
   
   }

@@ -6,6 +6,7 @@ import bcrypt from "bcrypt"
 import Jwt from "jsonwebtoken"
 import Blog from "../models/blog"
 import { cookies } from "next/headers";
+import { isDynamicServerError } from "next/dist/client/components/hooks-server-context";
 
 
 // Add User
@@ -137,4 +138,135 @@ export async function DeleteBlog(blogid) {
             message:"Something went wrong in delete section"
         }
     }
+}
+
+// Edit Blog
+
+export async function EditBlog(blogId,blogData) {
+    try{
+      
+        await ConnDB();
+        const getCurrentBlogID = blogId
+        const blogData = JSON.parse(blogFormData)
+        console.log(blogData + " Data");
+        console.log(blogId + " Id");
+
+        
+        if(!getCurrentBlogID){
+            return {
+             success:false,
+             message:"Blog ID is required"
+            }
+         }
+
+        const { title, description } = blogData;
+
+         if (!title) {
+            return {
+              success: false,
+              message: "Error in editblog",
+            };
+          }
+
+          const updateBlogByID = await Blog.findOneAndUpdate({
+            _id:getCurrentBlogID
+          }, {title, description},{new:true});
+
+          if (updateBlogByID) {
+            return {
+              success: true,
+              message: "Blog updated successfully",
+            };
+          } else {
+            return {
+              success: false,
+              message: "something went wrong",
+            };
+
+
+        }
+    }catch(err){
+        return {
+            success:false,
+            message:"something went wrong"
+        }
+    }
+}
+
+// Add Blog
+
+export async function AddBlog(blogData) {
+    try {
+        await ConnDB();
+        
+        const { title, description } = JSON.parse(blogData);
+        const cookieStore = cookies()
+    
+        if (!title) {
+          return {
+            success: false,
+            message: "Error in addblog",
+          };
+        }
+    
+        const newlyCreatedBlogItem = await Blog.create({
+          title,
+          description
+        });
+        if (newlyCreatedBlogItem) {
+          return {
+            success: true,
+            message: "Blog added successfully",
+          };
+        } else {
+          return {
+            success: false,
+            message: "something went wrong",
+          };
+        }
+      } catch (err) {
+        console.log(err);
+        return {
+          success: false,
+          message: "something went wrong",
+        };
+      }
+}
+
+// Guest Login
+
+export async function GuestLogin(params) {
+  try{
+    cookies().set("token","Guest Login Cookie")
+    return {
+      success:true,
+      message:"login successful with guest account"
+    }
+  }catch(err){
+     if(isDynamicServerError)
+      throw err
+
+     return {
+      success:false,
+      message:"Guest login failed"
+     }
+  }
+}
+
+// Logout
+
+export async function LogOut(params) {
+  try {
+    cookies().set("token","")
+    return {
+        success:true,
+        message:"Logout successfull"
+    }
+
+} catch (error) {
+    return {
+        success:false,
+        message:"Something went wrong in logout Rote"
+    }
+}
 }
