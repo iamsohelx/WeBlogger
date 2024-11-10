@@ -270,3 +270,34 @@ export async function LogOut(params) {
     }
 }
 }
+
+// Blog Details
+
+export async function BlogDetails(blogId) {
+  try{
+    await ConnDB();
+    
+    const extractAllBlogData = await Blog.findOne({_id:blogId})
+    
+
+    if(extractAllBlogData){
+        return {
+            success:true,
+            data: extractAllBlogData,
+        }
+    }
+    else{
+        return {
+            success:false,
+            message:"something went wrong"
+        }
+    }
+
+    
+}catch(err){
+if(isDynamicServerError(err))
+throw err
+  console.log(err);
+  
+}
+}

@@ -20,7 +20,7 @@ const page = () => {
             Explore
           </Link>
         </div>
-        <Image src={blogImg} className="w-[100rem] md:w-[80%] " alt="blog" />
+        <Image src={blogImg} className="w-[100rem] md:w-[80%] animate-updown" alt="blog" />
       </div>
     </>
   );
