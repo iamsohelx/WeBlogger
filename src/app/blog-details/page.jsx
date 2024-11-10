@@ -13,6 +13,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+import { BlogDetails } from "@/actions";
 
 const Page = () => {
   const router = useRouter();
@@ -41,17 +42,9 @@ const Page = () => {
 
   const setBlogDetailData = async () => {
     try {
-      const apiResponse = await fetch(
-        `${process.env.NEXT_PUBLIC_MAIN_URL}/api/get-blog-detail?id=${blogId}`,
-        {
-          method: "GET",
-          cache: "no-store",
-        }
-      );
-
       console.log("Allah");
 
-      const result = await apiResponse.json();
+      const result = await BlogDetails(blogId);
 
       return result?.data;
     } catch (err) {
@@ -65,8 +58,8 @@ const Page = () => {
         <div className="flex flex-col space-y-3 p-7">
           <Skeleton className="h-60 w-full rounded-xl" />
           <div className="space-y-2">
-            <Skeleton className="h-14 w-[90vw]" />
-            <Skeleton className="h-14 w-[85vw]" />
+            <Skeleton className="h-11 w-[80vw]" />
+            <Skeleton className="h-11 w-[70vw]" />
           </div>
         </div>
       ) : (
@@ -81,7 +74,7 @@ const Page = () => {
           <CardFooter>
             <Button
               onClick={() => router.push("/blog-display")}
-              className="w-full bg-blue-600 text-white md:px-5"
+              className="w-full bg-blue-600 text-white md:px-5 hover:bg-blue-800"
             >
               Go Back
             </Button>
