@@ -9,7 +9,7 @@ module.exports = {
   theme: {
   	extend: {
 		animation: {
-			updown: 'updown 5s infinite',
+			updown: 'updown 4s infinite',
 		  },
 		  keyframes: {
 			updown: {
