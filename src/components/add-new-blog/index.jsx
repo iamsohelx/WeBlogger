@@ -32,11 +32,9 @@ const AddNewBlog = ({
       const blogData = JSON.stringify(blogFormData);
 
       setLoading(true);
-      //  const apiResponse = currentEditedBlogId !== null?
-      //   result = await EditBlog(currentEditedBlogId,blogData)
-      //   :
 
-      result = await AddBlog(blogData);
+     !currentEditedBlogId? result = await AddBlog(blogData)
+     :result = await EditBlog(currentEditedBlogId,blogData)
 
       if (result) {
         router.refresh();

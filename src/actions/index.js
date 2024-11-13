@@ -142,7 +142,7 @@ export async function DeleteBlog(blogid) {
 
 // Edit Blog
 
-export async function EditBlog(blogId,blogData) {
+export async function EditBlog(blogId,blogFormData) {
     try{
       
         await ConnDB();

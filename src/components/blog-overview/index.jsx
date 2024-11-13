@@ -41,9 +41,6 @@ const BlogOverview = ({ BlogLists }) => {
       title: currentId.title,
       description: currentId.description,
     });
-
-    const blogData = JSON.stringify(currentId);
-    const result = await EditBlog(currentEditedBlogId, blogData);
   };
 
   return (
